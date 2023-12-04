@@ -7,14 +7,18 @@ if sys.platform == 'darwin':
     os.environ['CFLAGS']   = '-DGGML_USE_ACCELERATE -O3 -std=gnu11'
     os.environ['CXXFLAGS'] = '-DGGML_USE_ACCELERATE -O3 -std=c++11'
     os.environ['LDFLAGS']  = '-framework Accelerate'
-elif os.uname().machine == 'aarch64':
-    # For ARM64 architecture
-    os.environ['CFLAGS']   = '-O3 -std=gnu11 -flax-vector-conversions'
-    os.environ['CXXFLAGS'] = '-O3 -std=c++11 -flax-vector-conversions'
+# elif os.uname().machine == 'aarch64':
+#     # For ARM64 architecture
+#     os.environ['CFLAGS']   = '-O3 -std=gnu11 -flax-vector-conversions'
+#     os.environ['CXXFLAGS'] = '-O3 -std=c++11 -flax-vector-conversions'
 else:
+    # For ARM64 architecture
+    os.environ['CFLAGS'] = '-O3 -std=gnu11 -flax-vector-conversions'
+    os.environ['CXXFLAGS'] = '-O3 -std=c++11 -flax-vector-conversions'
+
     # For x86_64 architecture
-    os.environ['CFLAGS']   = '-mavx -mavx2 -mfma -mf16c -O3 -std=gnu11'
-    os.environ['CXXFLAGS'] = '-mavx -mavx2 -mfma -mf16c -O3 -std=c++11'
+    # os.environ['CFLAGS']   = '-mavx -mavx2 -mfma -mf16c -O3 -std=gnu11'
+    # os.environ['CXXFLAGS'] = '-mavx -mavx2 -mfma -mf16c -O3 -std=c++11'
 
 ext_modules = [
     Extension(
